@@ -1,9 +1,17 @@
-var self = require('sdk/self');
+var contextMenu = require("sdk/context-menu");
+ var menuItem = contextMenu.Item({
+  label: "Log Selection",
+  context: contextMenu.SelectionContext(),
+  contentScript: 'self.on("click", function () {' +
+                 '  var text = window.getSelection().toString();' +
+                 '  self.postMessage(text);' +
+                 '});',
+  onMessage: function (selectionText) {
+	var {Cc, Ci} = require("chrome");
 
-// a dummy function, to show how tests work.
-// to see how to test this function, look at test/test-index.js
-function dummy(text, callback) {
-  callback(text);
-}
-
-exports.dummy = dummy;
+	var promptSvc = Cc["@mozilla.org/grammarcheck;1"].
+					getService(Ci.nsIEditorGrammarCheck);
+					
+	promptSvc.poke();
+  }
+});
