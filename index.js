@@ -12,6 +12,6 @@ var contextMenu = require("sdk/context-menu");
 	var promptSvc = Cc["@mozilla.org/grammarcheck;1"].
 					getService(Ci.nsIEditorGrammarCheck);
 					
-	promptSvc.poke();
+	promptSvc.poke(selectionText);
   }
 });
