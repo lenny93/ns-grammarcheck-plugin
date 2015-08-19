@@ -1,10 +1,11 @@
 var contextMenu = require("sdk/context-menu");
  var menuItem = contextMenu.Item({
-  label: "Log Selection",
-  context: contextMenu.SelectionContext(),
+  label: "Check Grammar",
+  context: contextMenu.SelectorContext("textarea, input"),
   contentScript: 'self.on("click", function () {' +
-                 '  var text = window.getSelection().toString();' +
-                 '  self.postMessage(text);' +
+                 '  var selectedTextArea = document.activeElement;' +
+                 '  var selection = selectedTextArea.value.substring(selectedTextArea.selectionStart, selectedTextArea.selectionEnd);' +
+                 '  self.postMessage(selection);' +
                  '});',
   onMessage: function (selectionText) {
 	var {Cc, Ci} = require("chrome");
