@@ -1,18 +1,18 @@
-var contextMenu = require("sdk/context-menu");
- var menuItem = contextMenu.Item({
-  label: "Check Grammar",
-  context: contextMenu.SelectorContext("textarea, input"),
-  contentScript: 'self.on("click", function () {' +
-                 '  var selectedTextArea = document.activeElement;' +
-                 '  var selection = selectedTextArea.value.substring(selectedTextArea.selectionStart, selectedTextArea.selectionEnd);' +
-                 '  self.postMessage(selection);' +
-                 '});',
-  onMessage: function (selectionText) {
-	var {Cc, Ci} = require("chrome");
+var {Cc, Ci} = require("chrome");
 
-	var promptSvc = Cc["@mozilla.org/grammarcheck;1"].
-					getService(Ci.nsIEditorGrammarCheck);
-					
-	promptSvc.poke(selectionText);
-  }
-});
+var gcSvc = Cc["@mozilla.org/grammarcheck;1"].
+				getService(Ci.nsIEditorGrammarCheck);
+				
+
+function handleWord(word) 
+{
+	var startPos = [0,4];
+	var endPos = [2,9];
+	
+	gcSvc.errorsFound(startPos, endPos, startPos.length);
+	gcSvc.addSuggestionForError(0, "[this will be replaced]");
+	gcSvc.addSuggestionForError(1, "[another suggestion]");
+}
+
+				
+gcSvc.registerAddon(handleWord);
