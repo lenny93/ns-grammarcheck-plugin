@@ -10,8 +10,9 @@ function handleWord(word)
 	var endPos = [2,9];
 	
 	gcSvc.errorsFound(startPos, endPos, startPos.length);
-	gcSvc.addSuggestionForError(0, "[this will be replaced]");
-	gcSvc.addSuggestionForError(1, "[another suggestion]");
+	gcSvc.addSuggestionForError(0, "[this will be replaced]", "desc");
+	gcSvc.addSuggestionForError(0, "[this will be replaced2]", "desc2");
+	gcSvc.addSuggestionForError(1, "[another suggestion]", "desc");
 }
 
 				
