@@ -14,19 +14,19 @@ function dispatchErrors(text)
 		return;
 	
 	gcSvc.errorsFound(startPos, endPos, startPos.length);
-	gcSvc.addSuggestionForError(0, "replaced", "msg1");
-	gcSvc.addSuggestionForError(1, "suggestion1", "msg2");
-	gcSvc.addSuggestionForError(1, "suggestion2", "msg2");
+	gcSvc.addSuggestionForError(0, "description long description very long", "even longer tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada euismod suscipit.", true);
+	gcSvc.addSuggestionForError(1, "suggestion1", "message for error 2");
+	gcSvc.addSuggestionForError(1, "suggestion2", "message for error 2");
 }
 
 function handleWord(word) 
 {
 	currentText = word;
 	
-	console.error("Handle Word");
+	console.error(word);
 	
 
-	setTimeout(dispatchErrors(word), 5000)
+	setTimeout(function() { dispatchErrors(word) }, 500);
 }
 
 				
